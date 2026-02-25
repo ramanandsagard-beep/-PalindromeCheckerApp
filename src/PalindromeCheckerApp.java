@@ -1,14 +1,21 @@
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String text = "madam"; // hardcoded string
+        String text = "radar";
+        char[] chars = text.toCharArray();
+
+        int left = 0;
+        int right = chars.length - 1;
         boolean isPalindrome = true;
 
-        for (int i = 0; i < text.length() / 2; i++) {
-            if (text.charAt(i) != text.charAt(text.length() - 1 - i)) {
+        // Two-pointer comparison
+        while (left < right) {
+            if (chars[left] != chars[right]) {
                 isPalindrome = false;
                 break;
             }
+            left++;
+            right--;
         }
 
         if (isPalindrome) {
