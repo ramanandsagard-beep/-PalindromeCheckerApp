@@ -1,20 +1,23 @@
-public class UC9_RecursivePalindrome {
+public class UC10_NormalizedPalindrome {
 
     public static boolean isPalindrome(String input) {
-        return check(input, 0, input.length() - 1);
-    }
+        String normalized = input
+                .replaceAll("[^a-zA-Z0-9]", "") // remove spaces & symbols
+                .toLowerCase();
 
-    private static boolean check(String str, int left, int right) {
-        if (left >= right) return true;  // Base condition
+        int left = 0, right = normalized.length() - 1;
 
-        if (str.charAt(left) != str.charAt(right))
-            return false;
-
-        return check(str, left + 1, right - 1);
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
-        System.out.println(isPalindrome("noon"));  // true
-        System.out.println(isPalindrome("apple")); // false
+        System.out.println(isPalindrome("A man a plan a canal Panama")); // true
+        System.out.println(isPalindrome("Hello World")); // false
     }
 }
