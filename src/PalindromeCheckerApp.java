@@ -1,57 +1,33 @@
-interface PalindromeStrategy {
-    boolean isPalindrome(String input);
-}
+public class UC13_PerformanceComparison {
 
-// Stack Strategy
-class StackStrategy implements PalindromeStrategy {
-    public boolean isPalindrome(String input) {
-        java.util.Stack<Character> stack = new java.util.Stack<>();
-        for (char c : input.toCharArray()) stack.push(c);
-
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) return false;
-        }
-        return true;
-    }
-}
-
-// Deque Strategy
-class DequeStrategy implements PalindromeStrategy {
-    public boolean isPalindrome(String input) {
-        java.util.Deque<Character> deque = new java.util.LinkedList<>();
-        for (char c : input.toCharArray()) deque.addLast(c);
-
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast())
+    public static boolean iterativeCheck(String str) {
+        int left = 0, right = str.length() - 1;
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right))
                 return false;
+            left++;
+            right--;
         }
         return true;
     }
-}
 
-// Context Class
-class PalindromeContext {
-    private PalindromeStrategy strategy;
-
-    public PalindromeContext(PalindromeStrategy strategy) {
-        this.strategy = strategy;
+    public static boolean recursiveCheck(String str, int left, int right) {
+        if (left >= right) return true;
+        if (str.charAt(left) != str.charAt(right)) return false;
+        return recursiveCheck(str, left + 1, right - 1);
     }
 
-    public void setStrategy(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean execute(String input) {
-        return strategy.isPalindrome(input);
-    }
-}
-
-public class UC12_StrategyDemo {
     public static void main(String[] args) {
-        PalindromeContext context = new PalindromeContext(new StackStrategy());
-        System.out.println(context.execute("level"));
+        String test = "A man a plan a canal Panama".replaceAll("\\s+", "").toLowerCase();
 
-        context.setStrategy(new DequeStrategy());
-        System.out.println(context.execute("hello"));
+        long start = System.nanoTime();
+        iterativeCheck(test);
+        long end = System.nanoTime();
+        System.out.println("Iterative Time: " + (end - start) + " ns");
+
+        start = System.nanoTime();
+        recursiveCheck(test, 0, test.length() - 1);
+        end = System.nanoTime();
+        System.out.println("Recursive Time: " + (end - start) + " ns");
     }
 }
