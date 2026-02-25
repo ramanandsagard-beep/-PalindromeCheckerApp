@@ -1,18 +1,16 @@
 import java.util.*;
 
-public class UC6_QueueStackPalindrome {
+public class UC7_DequePalindrome {
 
     public static boolean isPalindrome(String input) {
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new LinkedList<>();
 
         for (char ch : input.toCharArray()) {
-            queue.add(ch);      // Enqueue (FIFO)
-            stack.push(ch);     // Push (LIFO)
+            deque.addLast(ch);
         }
 
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 return false;
             }
         }
@@ -20,7 +18,7 @@ public class UC6_QueueStackPalindrome {
     }
 
     public static void main(String[] args) {
-        System.out.println(isPalindrome("madam")); // true
-        System.out.println(isPalindrome("hello")); // false
+        System.out.println(isPalindrome("level")); // true
+        System.out.println(isPalindrome("world")); // false
     }
 }
