@@ -1,10 +1,9 @@
-public class UC10_NormalizedPalindrome {
+public class PalindromeChecker {
 
-    public static boolean isPalindrome(String input) {
-        String normalized = input
-                .replaceAll("[^a-zA-Z0-9]", "") // remove spaces & symbols
-                .toLowerCase();
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
 
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
         int left = 0, right = normalized.length() - 1;
 
         while (left < right) {
@@ -17,7 +16,7 @@ public class UC10_NormalizedPalindrome {
     }
 
     public static void main(String[] args) {
-        System.out.println(isPalindrome("A man a plan a canal Panama")); // true
-        System.out.println(isPalindrome("Hello World")); // false
+        PalindromeChecker checker = new PalindromeChecker();
+        System.out.println(checker.checkPalindrome("Madam")); // true
     }
 }
