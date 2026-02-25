@@ -1,30 +1,26 @@
-import java.util.Stack;
+import java.util.*;
 
-public class PalindromeCheckerApp {
+public class UC6_QueueStackPalindrome {
 
-    public static void main(String[] args) {
-        String text = "madam";
+    public static boolean isPalindrome(String input) {
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // Push all characters into the stack
-        for (int i = 0; i < text.length(); i++) {
-            stack.push(text.charAt(i));
+        for (char ch : input.toCharArray()) {
+            queue.add(ch);      // Enqueue (FIFO)
+            stack.push(ch);     // Push (LIFO)
         }
 
-        boolean isPalindrome = true;
-
-        // Pop and compare with original string
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) != stack.pop()) {
-                isPalindrome = false;
-                break;
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
+                return false;
             }
         }
+        return true;
+    }
 
-        if (isPalindrome) {
-            System.out.println("\"" + text + "\" is a palindrome.");
-        } else {
-            System.out.println("\"" + text + "\" is not a palindrome.");
-        }
+    public static void main(String[] args) {
+        System.out.println(isPalindrome("madam")); // true
+        System.out.println(isPalindrome("hello")); // false
     }
 }
