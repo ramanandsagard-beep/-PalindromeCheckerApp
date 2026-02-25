@@ -1,19 +1,22 @@
-public class PalindromeCheckerApp {
+public class PalindromeChecker {
+
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
+
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+        int left = 0, right = normalized.length() - 1;
+
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
-        String original = "level";
-        String reversed = "";
-
-        // Reverse the string using a loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
-        }
-
-        // Compare original and reversed string
-        if (original.equals(reversed)) {
-            System.out.println("\"" + original + "\" is a palindrome.");
-        } else {
-            System.out.println("\"" + original + "\" is not a palindrome.");
-        }
+        PalindromeChecker checker = new PalindromeChecker();
+        System.out.println(checker.checkPalindrome("Madam")); // true
     }
 }
